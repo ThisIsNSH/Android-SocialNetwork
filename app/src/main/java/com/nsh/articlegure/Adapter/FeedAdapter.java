@@ -62,9 +62,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position){
         final Feed feed = feedList.get(position);
+        Glide.with(mContext).load(feed.getImgUrl()).into(holder.image1);
         holder.info_text1.setText(feed.getInfo());
         holder.like_count1.setText(feed.getLike());
-        Glide.with(mContext).load(feed.getImgUrl()).into(holder.image1);
+
         holder.like1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +76,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String data = dataSnapshot.getValue(String.class);
                         ref.setValue(Integer.toString(Integer.parseInt(data)+1));
+
                     }
 
                     @Override
@@ -82,7 +84,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
 
                     }
                 });
-
+                /*String data = holder.like_count1.getText().toString();
+                ref.setValue(Integer.toString(Integer.parseInt(data)+1));
+                holder.like_count1.setText(Integer.toString(Integer.parseInt(data)+1));
+*/
             }
         });
     }

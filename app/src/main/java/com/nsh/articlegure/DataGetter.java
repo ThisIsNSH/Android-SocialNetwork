@@ -8,7 +8,7 @@ public class DataGetter {
     String text,img,likes;
 
 
-    public void DataGetter(String text,String img,String likes){
+    public void DataGetter(String img,String likes,String text){
         this.text=text;
         this.img=img;
         this.likes=likes;
@@ -30,12 +30,14 @@ public class DataGetter {
         return likes;
     }
 
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getImg() {
         return img;
     }
 
-    public void setImg(String img) {
-        this.img = img;
-    }
+
 
 }

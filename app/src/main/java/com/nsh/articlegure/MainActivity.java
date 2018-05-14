@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    int i;
     private RecyclerView recyclerView;
     private FeedAdapter feedAdapter;
     private List<Feed> feedList;
@@ -46,24 +48,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getFeed() {
-        for (int i = 0; i < 5; i++) {
 
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference ref = database.getReference(Integer.toString(i + 1));
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference ref = database.getReferenceFromUrl("https://article-gure-276fe.firebaseio.com/");
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                DataGetter data = dataSnapshot.getValue(DataGetter.class);
+                feedList.add(new Feed(data.getTex(), data.getImg(), data.getLikes()));
+                feedAdapter.notifyDataSetChanged();
+            }
 
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    DataGetter data = dataSnapshot.getValue(DataGetter.class);
-                    feedList.add(new Feed(data.getTex(), data.getImg(), data.getLikes()));
-                    feedAdapter.notifyDataSetChanged();
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                DataGetter data = dataSnapshot.getValue(DataGetter.class);
+                for (int i = 0; i < 5; i++) {
+                    if (feedList.get(i).getInfo().equals(data.getTex())) {
+                        feedList.remove(i);
+
+                        feedList.add(i,new Feed(data.getTex(), data.getImg(), data.getLikes()));
+                        feedAdapter.notifyDataSetChanged();
+
+                    }
                 }
 
-                @Override
-                public void onCancelled(DatabaseError error) {
-                }
-            });
-        }
-        feedAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
+
+
 }
+
