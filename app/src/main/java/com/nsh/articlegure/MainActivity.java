@@ -49,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 5; i++) {
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference Ref = database.getReference(Integer.toString(i + 1));
+            DatabaseReference ref = database.getReference(Integer.toString(i + 1));
 
-            Ref.addValueEventListener(new ValueEventListener() {
+            ref.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     DataGetter data = dataSnapshot.getValue(DataGetter.class);
-                    feedList.add(new Feed(data.getTex(),data.getImg(),data.getLike()));
+                    feedList.add(new Feed(data.getTex(), data.getImg(), data.getLikes()));
                     feedAdapter.notifyDataSetChanged();
                 }
 

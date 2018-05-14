@@ -60,8 +60,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, final int position){
         final Feed feed = feedList.get(position);
         holder.info_text1.setText(feed.getInfo());
-
-
         holder.like_count1.setText(feed.getLike());
         Glide.with(mContext).load(feed.getImgUrl()).into(holder.image1);
         holder.like1.setOnClickListener(new View.OnClickListener() {
