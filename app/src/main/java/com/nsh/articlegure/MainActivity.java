@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -21,11 +23,15 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FeedAdapter feedAdapter;
     private List<Feed> feedList;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.VISIBLE);
 
         recyclerView = findViewById(R.id.recycler_view);
         feedList = new ArrayList<>();
@@ -48,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                spinner.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
                 DataGetter data = dataSnapshot.getValue(DataGetter.class);
                 feedList.add(new Feed(data.getInfo(), data.getImg(), data.getLikes()));
                 feedAdapter.notifyDataSetChanged();
@@ -56,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 final DataGetter data = dataSnapshot.getValue(DataGetter.class);
+                spinner.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
                 ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot1) {
@@ -77,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 final DataGetter data = dataSnapshot.getValue(DataGetter.class);
+                spinner.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
                 ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot1) {

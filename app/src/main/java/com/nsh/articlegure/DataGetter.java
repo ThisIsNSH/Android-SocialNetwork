@@ -5,26 +5,26 @@ package com.nsh.articlegure;
  */
 
 public class DataGetter {
-    String text, img, likes;
+    private String info, img, likes;
 
-    public void DataGetter() {
+    public DataGetter() {
         this.img = " ";
-        this.text = " ";
+        this.info = " ";
         this.likes = " ";
     }
 
-    public void DataGetter(String img, String likes, String text) {
-        this.text = text;
+    public DataGetter(String img, String likes, String info) {
+        this.info = info;
         this.img = img;
         this.likes = likes;
     }
 
-    public void setInfo(String text) {
-        this.text = text;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public String getInfo() {
-        return text;
+        return info;
     }
 
     public void setLikes(String likes) {

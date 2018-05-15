@@ -1,12 +1,17 @@
 package com.nsh.articlegure;
 
+import android.support.annotation.Keep;
+
+import com.google.firebase.database.IgnoreExtraProperties;
+
 /**
  * Created by ThisIsNSH on 5/14/2018.
  */
-
+@IgnoreExtraProperties
+@Keep
 public class Feed {
 
-    String info, imgUrl, like;
+    private String info, imgUrl, like;
 
     public Feed() {
     }
@@ -29,15 +34,4 @@ public class Feed {
         return info;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public void setLike(String like) {
-        this.like = like;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
 }
