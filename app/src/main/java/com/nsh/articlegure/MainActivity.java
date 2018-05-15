@@ -2,10 +2,8 @@ package com.nsh.articlegure;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -16,19 +14,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.nsh.articlegure.Adapter.FeedAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    int i;
     private RecyclerView recyclerView;
     private FeedAdapter feedAdapter;
     private List<Feed> feedList;
-    private ArrayList<String> info_string, url_string, like_string;
-
-    public String firebase_info, firebase_url, firebase_like;
-    public String firebase_info1, firebase_url1, firebase_like1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,24 +60,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot1) {
                         for (int i = 0; i < dataSnapshot1.getChildrenCount(); i++) {
-
                             if (feedList.get(i).getImgUrl().equals(data.getImg())) {
                                 feedList.remove(i);
-
                                 feedList.add(i, new Feed(data.getInfo(), data.getImg(), data.getLikes()));
                                 feedAdapter.notifyDataSetChanged();
-
                             }
                         }
-
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
-
             }
 
             @Override
@@ -95,36 +81,25 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot1) {
                         for (int i = 0; i < dataSnapshot1.getChildrenCount(); i++) {
-
                             if (feedList.get(i).getImgUrl().equals(data.getImg())) {
                                 feedList.remove(i);
-
                                 feedAdapter.notifyDataSetChanged();
-
                             }
                         }
-
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
-
             }
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
     }
-
-
 }

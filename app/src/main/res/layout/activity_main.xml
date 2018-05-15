@@ -10,8 +10,8 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:elevation="4dp"
-        android:background="#000">
+        android:background="#000"
+        android:elevation="4dp">
 
         <TextView
             android:layout_width="wrap_content"

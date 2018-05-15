@@ -2,7 +2,6 @@ package com.nsh.articlegure.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,6 @@ import com.nsh.articlegure.Feed;
 import com.nsh.articlegure.R;
 
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by ThisIsNSH on 5/14/2018.
@@ -64,8 +61,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
         final Feed feed = feedList.get(position);
         Glide.with(mContext).load(feed.getImgUrl()).into(holder.image1);
         holder.info_text1.setText(feed.getInfo());
-        holder.like_count1.setText(feed.getLike()+" people like this");
-
+        holder.like_count1.setText(feed.getLike()+" people\nlike this");
         holder.like1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,9 +72,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String data = dataSnapshot.getValue(String.class);
                         ref.setValue(Integer.toString(Integer.parseInt(data)+1));
-
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
@@ -86,14 +80,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
                 });
                 /*String data = holder.like_count1.getText().toString();
                 ref.setValue(Integer.toString(Integer.parseInt(data)+1));
-                holder.like_count1.setText(Integer.toString(Integer.parseInt(data)+1));
-*/
+                holder.like_count1.setText(Integer.toString(Integer.parseInt(data)+1));*/
             }
         });
     }
-
-
-
     @Override
     public int getItemCount() {
         return feedList.size();
