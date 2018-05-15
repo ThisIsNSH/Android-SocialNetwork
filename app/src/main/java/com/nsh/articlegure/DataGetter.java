@@ -7,6 +7,11 @@ package com.nsh.articlegure;
 public class DataGetter {
     String text,img,likes;
 
+    public void DataGetter(){
+        this.img=" ";
+        this.text=" ";
+        this.likes=" ";
+    }
 
     public void DataGetter(String img,String likes,String text){
         this.text=text;
@@ -14,11 +19,11 @@ public class DataGetter {
         this.likes=likes;
     }
 
-    public void setTex(String text) {
+    public void setInfo(String text) {
         this.text = text;
     }
 
-    public String getTex() {
+    public String getInfo() {
         return text;
     }
 

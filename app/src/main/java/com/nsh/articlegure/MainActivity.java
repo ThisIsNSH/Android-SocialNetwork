@@ -55,30 +55,62 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 DataGetter data = dataSnapshot.getValue(DataGetter.class);
-                feedList.add(new Feed(data.getTex(), data.getImg(), data.getLikes()));
+                feedList.add(new Feed(data.getInfo(), data.getImg(), data.getLikes()));
                 feedAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                DataGetter data = dataSnapshot.getValue(DataGetter.class);
-                for (int i = 0; i < 5; i++) {
-                    if (feedList.get(i).getInfo().equals(data.getTex())) {
-                        feedList.remove(i);
+                final DataGetter data = dataSnapshot.getValue(DataGetter.class);
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot1) {
+                        for (int i = 0; i < dataSnapshot1.getChildrenCount(); i++) {
 
-                        feedList.add(i,new Feed(data.getTex(), data.getImg(), data.getLikes()));
-                        feedAdapter.notifyDataSetChanged();
+                            if (feedList.get(i).getImgUrl().equals(data.getImg())) {
+                                feedList.remove(i);
+
+                                feedList.add(i, new Feed(data.getInfo(), data.getImg(), data.getLikes()));
+                                feedAdapter.notifyDataSetChanged();
+
+                            }
+                        }
 
                     }
-                }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                final DataGetter data = dataSnapshot.getValue(DataGetter.class);
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot1) {
+                        for (int i = 0; i < dataSnapshot1.getChildrenCount(); i++) {
+
+                            if (feedList.get(i).getImgUrl().equals(data.getImg())) {
+                                feedList.remove(i);
+
+                                feedAdapter.notifyDataSetChanged();
+
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
             }
-
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
@@ -94,4 +126,3 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
-
