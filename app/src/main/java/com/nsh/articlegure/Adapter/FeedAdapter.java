@@ -64,7 +64,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.MyViewHolder> 
         final Feed feed = feedList.get(position);
         Glide.with(mContext).load(feed.getImgUrl()).into(holder.image1);
         holder.info_text1.setText(feed.getInfo());
-        holder.like_count1.setText(feed.getLike());
+        holder.like_count1.setText(feed.getLike()+" people like this");
 
         holder.like1.setOnClickListener(new View.OnClickListener() {
             @Override
