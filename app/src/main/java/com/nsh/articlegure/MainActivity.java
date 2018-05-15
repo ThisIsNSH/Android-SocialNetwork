@@ -40,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
         feedAdapter = new FeedAdapter(this, feedList);
 
         getFeed();
-        LinearLayoutManager llm = new LinearLayoutManager(this);
+        int numberOfColumns = 2;
+        recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+        /*LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
+        recyclerView.setLayoutManager(llm);*/
         recyclerView.setAdapter(feedAdapter);
 
     }
